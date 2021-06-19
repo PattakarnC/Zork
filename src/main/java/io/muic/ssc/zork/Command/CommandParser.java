@@ -3,13 +3,14 @@ package io.muic.ssc.zork.Command;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class CommandParser {
 
     private List<String> allCommandSortedByLength = new ArrayList<>();
     {
         allCommandSortedByLength.addAll(CommandFactory.getAllCommands());
-        allCommandSortedByLength.sort(((o1, o2) -> o2.length() - o1.length()  ));
+        allCommandSortedByLength.sort(((o1, o2) -> o2.length() - o1.length()));
     }
 
     private String matchInputToCommand(String input) {
@@ -23,18 +24,14 @@ public class CommandParser {
 
     // "attack with weapon" -> ["attack with", "weapon"]
     public List<String> parse(String stringInput) {
-        String cleanedInput = stringInput.trim();
-        String cmd = matchInputToCommand(cleanedInput);
-        Command command = CommandFactory.get(cmd);
-        if (command.numArgs() > 0) {
-            // TODO: so some checking for space later
-            // TODO: handle invalid number of argument
-            String argString = cleanedInput.substring(cmd.length() + 1);
-            System.out.println(argString);
+        try {
+            String cleanedInput = stringInput.toLowerCase(Locale.ROOT).trim();
+            String cmd = matchInputToCommand(cleanedInput);
+            String argString = cleanedInput.substring(cmd.length()).trim();
             return Arrays.asList(cmd, argString);
         }
-        else {
-            return Arrays.asList(cmd);
+        catch (NullPointerException e) {
+            return null;
         }
     }
 }
