@@ -10,8 +10,8 @@ import java.util.Scanner;
 public class Game {
 
     private GameOutput output = new GameOutput();
-
     private CommandParser commandParser = new CommandParser();
+    private Player player = new Player();
 
     public void run() {
         while(true) {
@@ -31,5 +31,9 @@ public class Game {
 
     public void exit() {
         System.exit(0);
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }

@@ -24,7 +24,7 @@ public class ItemFactory {
         else if (weapon.equals("mythril saber")) {
             return new MythrilSaber();
         }
-        else { return null; }
+        return null;
     }
 
     public Potion createPotion(String input) {
@@ -38,6 +38,6 @@ public class ItemFactory {
         else if (potion.equals("mega-potion")) {
             return new MegaPotion();
         }
-        else { return null; }
+        return null;
     }
 }

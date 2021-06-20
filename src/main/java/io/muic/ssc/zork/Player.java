@@ -7,18 +7,16 @@ import java.util.List;
 
 public class Player {
 
-    private String name;
     private int max_hp;
     private int hp;
-    private int attackPower;
+    private int attackDmg;
     private boolean alive;
     private List<Item> inventory;
 
-    public Player(String name) {
-        this.name = name;
+    public Player() {
         max_hp = 1000;
         hp = max_hp;
-        attackPower = 75;
+        attackDmg = 75;
         alive = true;
         inventory = new ArrayList<>();
     }
@@ -51,8 +49,8 @@ public class Player {
         return hp;
     }
 
-    public void setAttackPower(int attackPower) {
-        this.attackPower = attackPower;
+    public void setAttackPower(int attackDmg) {
+        this.attackDmg = attackDmg;
     }
 
     public List<Item> getInventory() {
