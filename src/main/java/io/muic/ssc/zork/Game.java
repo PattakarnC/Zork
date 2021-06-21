@@ -11,7 +11,8 @@ public class Game {
 
     private GameOutput output = new GameOutput();
     private CommandParser commandParser = new CommandParser();
-    private Player player = new Player();
+    private Player player;
+    private Room currentRoom;
 
     public void run() {
         while(true) {
@@ -35,5 +36,13 @@ public class Game {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public Room getCurrentRoom() {
+        return currentRoom;
+    }
+
+    public void moveRoom(Room room) {
+        currentRoom = room;
     }
 }

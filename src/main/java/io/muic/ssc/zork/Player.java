@@ -56,4 +56,25 @@ public class Player {
     public List<Item> getInventory() {
         return inventory;
     }
+
+    public void pickUpItem(Item item) {
+        inventory.add(item);
+    }
+
+    public void printStats() {
+        System.out.println("[ Player's Stats ]");
+        System.out.println("   HP: " + hp + "/" + max_hp);
+        System.out.println("");
+        System.out.println("[ Inventory ]");
+
+        if (inventory.isEmpty()) {
+            System.out.println("Your inventory is currently empty!");
+        }
+        else {
+            for (Item item : inventory) {
+                System.out.println("=> " + item.getName());
+                System.out.println("     " + item.getDescription());
+            }
+        }
+    }
 }

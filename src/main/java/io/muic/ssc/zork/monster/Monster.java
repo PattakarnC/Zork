@@ -42,5 +42,12 @@ public class Monster {
     public boolean isAlive() {
         return alive;
     }
+
+    public void printStats() {
+        System.out.println("[ Monster's Stats ]");
+        System.out.println("   Name: " + name);
+        System.out.println("   HP: " + hp);
+        System.out.println("   Description: " + description);
+    }
 }
 

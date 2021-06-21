@@ -1,8 +1,10 @@
 package io.muic.ssc.zork.Command;
 
 import io.muic.ssc.zork.Game;
+import io.muic.ssc.zork.GameOutput;
 import io.muic.ssc.zork.Player;
-import io.muic.ssc.zork.item.Item;
+import io.muic.ssc.zork.Room;
+import io.muic.ssc.zork.monster.Monster;
 
 import java.util.List;
 
@@ -21,18 +23,20 @@ public class InfoCommand implements Command {
     //TODO: display current room info
     @Override
     public void execute(Game game, List<String> args) {
+        GameOutput output = game.getOutput();
         Player player = game.getPlayer();
-        System.out.println();
-        System.out.println("========================================================");
-        System.out.println("[ Player's Stats ]");
-        System.out.println("   HP: " + player.getHp() + "/" + player.getMax_hp());
-        System.out.println();
-        System.out.println("[ Inventory ]");
-        for (Item item : player.getInventory()) {
-            System.out.println("=> " + item.getName());
-            System.out.println("     " + item.getDescription());
-            System.out.println();
+        Room room = game.getCurrentRoom();
+        Monster monster = room.getMonster();
+
+        output.println("");
+        output.println("========================================================");
+        player.printStats();
+        output.println("========================================================");
+        room.printStats();
+        output.println("========================================================");
+        if (room.containsMonster()) {
+            monster.printStats();
+            output.println("========================================================");
         }
-        System.out.println("========================================================");
     }
 }

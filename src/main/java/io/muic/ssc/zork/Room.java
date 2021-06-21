@@ -14,7 +14,7 @@ public class Room {
     private Room west;
     private List<String> allExits;
     private String description;
-    private List<Item> item;
+    private List<Item> allItem;
     private Monster monster;
 
     public Room(String description) {
@@ -24,39 +24,55 @@ public class Room {
         west = null;
         allExits = new ArrayList<>();
         this.description = description;
-        item = new ArrayList<>();
+        allItem = new ArrayList<>();
         monster = null;
+    }
+
+    public Room getNorth() {
+        return north;
     }
 
     public void setNorth(Room room) {
         this.north = room;
-        allExits.add("North");
-        room.allExits.add("South");
+        allExits.add("north");
+        room.allExits.add("south");
         north.south = this;
+    }
+
+    public Room getSouth() {
+        return south;
     }
 
     public void setSouth(Room room) {
         this.south = room;
-        allExits.add("South");
-        room.allExits.add("North");
+        allExits.add("south");
+        room.allExits.add("north");
         south.north = this;
+    }
+
+    public Room getEast() {
+        return east;
     }
 
     public void setEast(Room room) {
         this.east = room;
-        allExits.add("East");
-        room.allExits.add("West");
+        allExits.add("east");
+        room.allExits.add("west");
         east.west = this;
+    }
+
+    public Room getWest() {
+        return west;
     }
 
     public void setWest(Room room) {
         this.west = room;
-        allExits.add("West");
-        room.allExits.add("East");
+        allExits.add("west");
+        room.allExits.add("east");
         west.east = this;
     }
 
-    public List<String> getPossibleExit() {
+    public List<String> getAllExits() {
         return allExits;
     }
 
@@ -64,18 +80,25 @@ public class Room {
         return description;
     }
 
-    public void setItem(Item item) {
-        this.item.add(item);
+    public void setAllItem(Item allItem) {
+        this.allItem.add(allItem);
     }
 
     public void removeItem(Item item) {
-        this.item.remove(item);
+        this.allItem.remove(item);
+    }
+
+    public List<Item> getAllItems() {
+        return allItem;
     }
 
     public boolean containsItem() {
-        return !item.isEmpty();
+        return !allItem.isEmpty();
     }
 
+    public Monster getMonster() {
+        return monster;
+    }
 
     public void setMonster(Monster monster) {
         this.monster = monster;
@@ -87,5 +110,20 @@ public class Room {
 
     public void removeMonster() {
         monster = null;
+    }
+
+    public void printStats() {
+        System.out.println("[ Current Room ]");
+        System.out.println("   Available Exits: " + getAllExits());
+        if (!allItem.isEmpty()) {
+            List<String> itemList = new ArrayList<>();
+            for (Item item : allItem) {
+                itemList.add(item.getName());
+            }
+            System.out.println("   Item(s): " + itemList);
+        }
+        else {
+            System.out.println("   No item can be picked up in this room.");
+        }
     }
 }
