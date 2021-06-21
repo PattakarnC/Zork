@@ -20,6 +20,11 @@ public class TakeCommand implements Command{
     }
 
     @Override
+    public String getDescription() {
+        return "Take command is used to pick up the item in the current room." ;
+    }
+
+    @Override
     public void execute(Game game, List<String> args) {
         Player player = game.getPlayer();
         Room room = game.getCurrentRoom();

@@ -20,7 +20,11 @@ public class InfoCommand implements Command {
         return "info";
     }
 
-    //TODO: display current room info
+    @Override
+    public String getDescription() {
+        return "Print out information of the player and the room that the player is currently in.";
+    }
+
     @Override
     public void execute(Game game, List<String> args) {
         GameOutput output = game.getOutput();

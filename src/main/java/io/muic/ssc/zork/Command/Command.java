@@ -10,5 +10,7 @@ public interface Command {
 
     String getCommand();
 
+    String getDescription();
+
     void execute(Game game, List<String> args);
 }

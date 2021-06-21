@@ -20,6 +20,11 @@ public class DropCommand implements Command{
     }
 
     @Override
+    public String getDescription() {
+        return "Drop item of choice that the player currently carries,";
+    }
+
+    @Override
     public void execute(Game game, List<String> args) {
         Player player = game.getPlayer();
         List<Item> inventory = player.getInventory();

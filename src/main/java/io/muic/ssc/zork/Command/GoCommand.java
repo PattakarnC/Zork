@@ -19,6 +19,11 @@ public class GoCommand implements Command{
     }
 
     @Override
+    public String getDescription() {
+        return "Move player to the room as specified by the direction, e.g. north, east, west, and south." ;
+    }
+
+    @Override
     public void execute(Game game, List<String> args) {
         Player player = game.getPlayer();
         Room room = game.getCurrentRoom();

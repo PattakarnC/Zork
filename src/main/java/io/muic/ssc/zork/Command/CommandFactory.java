@@ -6,35 +6,47 @@ import java.util.stream.Collectors;
 
 public class CommandFactory {
 
-    private static final List<Class<? extends Command>> REGISTERED_COMMANDS = Arrays.asList(
-            ExitCommand.class
-    );
+    private static final Set<String> INGAME_COMMANDS = new HashSet<>();
+    private static final Set<String> OUTGAME_COMMANDS = new HashSet<>();
 
-    private static final Map<String, Command> COMMANDS_MAP = new HashMap<>();
-
-    static {{
-        for (Class<? extends Command> commandClass : REGISTERED_COMMANDS) {
+    private static final Map<String, Command> COMMANDS_MAP = new HashMap<>() {{
+        CommandType[] commandTypes = CommandType.values();
+        for (int i = 0; i < commandTypes.length; i++) {
+            if (commandTypes[i].isInGame()) {
+                INGAME_COMMANDS.add(commandTypes[i].getCommandName());
+            }
+            if (commandTypes[i].isOutGame()) {
+                OUTGAME_COMMANDS.add(commandTypes[i].getCommandName());
+            }
             try {
-                Command command = commandClass.getDeclaredConstructor().newInstance();
-                COMMANDS_MAP.put(command.getCommand(), command);
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
+                Command command = commandTypes[i].getCommandClass().getDeclaredConstructor().newInstance();
+                put(commandTypes[i].getCommandName(), command);
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                 e.printStackTrace();
             }
         }
-    }}
+    }};
 
     public static Command get(String command) {
-        return COMMANDS_MAP.get(command);
+        if (COMMANDS_MAP.containsKey(command)) {
+            return COMMANDS_MAP.get(command);
+        }
+        else {
+            return null;
+        }
     }
 
     public static List<String> getAllCommands() {
         return COMMANDS_MAP.keySet().stream().collect(Collectors.toList());
     }
 
+    public static List<String> getInGameCommands() {
+        List<String> cmdList = new ArrayList<>(INGAME_COMMANDS);
+        return cmdList;
+    }
+
+    public static List<String> getOutGameCommands() {
+        List<String> cmdList = new ArrayList<>(OUTGAME_COMMANDS);
+        return cmdList;
+    }
 }

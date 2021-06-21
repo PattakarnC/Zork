@@ -13,6 +13,8 @@ public class Game {
     private CommandParser commandParser = new CommandParser();
     private Player player;
     private Room currentRoom;
+    private boolean inGame;
+    private boolean outGame;
 
     public void run() {
         while(true) {
@@ -44,5 +46,13 @@ public class Game {
 
     public void moveRoom(Room room) {
         currentRoom = room;
+    }
+
+    public boolean isInGame() {
+        return inGame;
+    }
+
+    public boolean isOutGame() {
+        return outGame;
     }
 }
