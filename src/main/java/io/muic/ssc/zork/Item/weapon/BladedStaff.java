@@ -1,4 +1,4 @@
-package io.muic.ssc.zork.item.weapon;
+package io.muic.ssc.zork.Item.weapon;
 
 public class BladedStaff extends Weapon {
 

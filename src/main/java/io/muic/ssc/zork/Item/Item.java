@@ -1,4 +1,4 @@
-package io.muic.ssc.zork.item;
+package io.muic.ssc.zork.Item;
 
 public class Item {
 

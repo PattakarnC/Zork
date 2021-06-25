@@ -1,4 +1,4 @@
-package io.muic.ssc.zork.monster;
+package io.muic.ssc.zork.Monster;
 
 public class RiotTrooper extends Monster{
 

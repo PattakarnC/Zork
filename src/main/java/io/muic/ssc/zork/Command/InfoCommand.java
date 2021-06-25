@@ -3,8 +3,8 @@ package io.muic.ssc.zork.Command;
 import io.muic.ssc.zork.Game;
 import io.muic.ssc.zork.GameOutput;
 import io.muic.ssc.zork.Player;
-import io.muic.ssc.zork.Room;
-import io.muic.ssc.zork.monster.Monster;
+import io.muic.ssc.zork.Map.Room;
+import io.muic.ssc.zork.Monster.Monster;
 
 import java.util.List;
 

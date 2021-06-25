@@ -2,11 +2,10 @@ package io.muic.ssc.zork.Command;
 
 import io.muic.ssc.zork.Game;
 import io.muic.ssc.zork.Player;
-import io.muic.ssc.zork.item.Item;
+import io.muic.ssc.zork.Item.Item;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 public class DropCommand implements Command{
     @Override
@@ -21,7 +20,7 @@ public class DropCommand implements Command{
 
     @Override
     public String getDescription() {
-        return "Drop item of choice that the player currently carries,";
+        return "Drop Item of choice that the player currently carries,";
     }
 
     @Override
@@ -31,17 +30,17 @@ public class DropCommand implements Command{
         String itemToRemove = args.get(0).trim().toLowerCase(Locale.ROOT);
 
         if (args.size() < 1 || itemToRemove.equals("") ) {
-            game.getOutput().println("Nothing to drop! Please specify the item you desire to drop.");
+            game.getOutput().println("Nothing to drop! Please specify the Item you desire to drop.");
         }
         else {
             for (Item item : inventory) {
                 if (item.getName().toLowerCase(Locale.ROOT).equals(itemToRemove)) {
-                    inventory.remove(itemToRemove);
+                    inventory.remove(item);
                     game.getOutput().println("You just dropped " + item.getName() + ".");
                     return;
                 }
             }
-            game.getOutput().println("That item is not presented in your inventory!");
+            game.getOutput().println("That Item is not presented in your inventory!");
         }
     }
 }

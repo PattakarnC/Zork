@@ -1,13 +1,14 @@
-package io.muic.ssc.zork;
+package io.muic.ssc.zork.Map;
 
-import io.muic.ssc.zork.item.Item;
-import io.muic.ssc.zork.monster.Monster;
+import io.muic.ssc.zork.Item.Item;
+import io.muic.ssc.zork.Monster.Monster;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Room {
 
+    private String name;
     private Room north;
     private Room south;
     private Room east;
@@ -17,7 +18,7 @@ public class Room {
     private List<Item> allItem;
     private Monster monster;
 
-    public Room(String description) {
+    public Room(String name, String description) {
         north = null;
         south = null;
         east = null;
@@ -28,47 +29,43 @@ public class Room {
         monster = null;
     }
 
-    public Room getNorth() {
+    public Room getNorthExit() {
         return north;
     }
 
-    public void setNorth(Room room) {
+    public void setNorthExit(Room room) {
         this.north = room;
         allExits.add("north");
-        room.allExits.add("south");
         north.south = this;
     }
 
-    public Room getSouth() {
+    public Room getSouthExit() {
         return south;
     }
 
-    public void setSouth(Room room) {
+    public void setSouthExit(Room room) {
         this.south = room;
         allExits.add("south");
-        room.allExits.add("north");
         south.north = this;
     }
 
-    public Room getEast() {
+    public Room getEastExit() {
         return east;
     }
 
-    public void setEast(Room room) {
+    public void setEastExit(Room room) {
         this.east = room;
         allExits.add("east");
-        room.allExits.add("west");
         east.west = this;
     }
 
-    public Room getWest() {
+    public Room getWestExit() {
         return west;
     }
 
-    public void setWest(Room room) {
+    public void setWestExit(Room room) {
         this.west = room;
         allExits.add("west");
-        room.allExits.add("east");
         west.east = this;
     }
 
@@ -123,7 +120,7 @@ public class Room {
             System.out.println("   Item(s): " + itemList);
         }
         else {
-            System.out.println("   No item can be picked up in this room.");
+            System.out.println("   No Item can be picked up in this room.");
         }
     }
 }

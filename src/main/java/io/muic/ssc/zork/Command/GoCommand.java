@@ -2,7 +2,7 @@ package io.muic.ssc.zork.Command;
 
 import io.muic.ssc.zork.Game;
 import io.muic.ssc.zork.Player;
-import io.muic.ssc.zork.Room;
+import io.muic.ssc.zork.Map.Room;
 
 import java.util.List;
 import java.util.Locale;
@@ -35,19 +35,20 @@ public class GoCommand implements Command{
         else {
             if (room.getAllExits().contains(direction)) {
                 if (direction.equals("north")) {
-                    game.moveRoom(room.getNorth());
+                    game.moveRoom(room.getNorthExit());
                 }
                 else if (direction.equals("south")) {
-                    game.moveRoom(room.getSouth());
+                    game.moveRoom(room.getSouthExit());
                 }
                 else if (direction.equals("east")) {
-                    game.moveRoom(room.getEast());
+                    game.moveRoom(room.getEastExit());
                 }
                 else {
-                    game.moveRoom(room.getWest());
+                    game.moveRoom(room.getWestExit());
                 }
                 player.increaseHealth(100);
                 game.getOutput().println("You have successfully moved to the room at " + direction + ".");
+                game.getOutput().println("Your HP will recover by 100 HP.");
             }
             else {
                 game.getOutput().println("There's no exit there!");

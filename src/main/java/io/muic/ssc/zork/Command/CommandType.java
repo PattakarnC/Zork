@@ -4,8 +4,11 @@ public enum CommandType {
     INFO(InfoCommand.class, "info", true, false),
     TAKE(TakeCommand.class, "take", true, false),
     DROP(DropCommand.class, "drop", true, false),
+    ATTACK(AttackWithCommand.class, "attack with", true, false),
     GO(GoCommand.class, "go", true, false),
     HELP(HelpCommand.class, "help", true, true),
+    QUIT(QuitCommand.class, "quit", true, false),
+    SAVE(SaveCommand.class, "save", true, false),
     EXIT(ExitCommand.class, "exit",  false, true);
 
     private Class<? extends Command> commandClass;

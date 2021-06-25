@@ -1,4 +1,4 @@
-package io.muic.ssc.zork.item.potion;
+package io.muic.ssc.zork.Item.potion;
 
 public class Elixir extends Potion {
 

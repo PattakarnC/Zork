@@ -1,20 +1,20 @@
-package io.muic.ssc.zork.item;
+package io.muic.ssc.zork.Item;
 
-import io.muic.ssc.zork.item.potion.Elixir;
-import io.muic.ssc.zork.item.potion.HiPotion;
-import io.muic.ssc.zork.item.potion.MegaPotion;
-import io.muic.ssc.zork.item.potion.Potion;
-import io.muic.ssc.zork.item.weapon.BladedStaff;
-import io.muic.ssc.zork.item.weapon.BusterSword;
-import io.muic.ssc.zork.item.weapon.MythrilSaber;
-import io.muic.ssc.zork.item.weapon.Weapon;
+import io.muic.ssc.zork.Item.potion.Elixir;
+import io.muic.ssc.zork.Item.potion.HiPotion;
+import io.muic.ssc.zork.Item.potion.MegaPotion;
+import io.muic.ssc.zork.Item.potion.Potion;
+import io.muic.ssc.zork.Item.weapon.BladedStaff;
+import io.muic.ssc.zork.Item.weapon.BusterSword;
+import io.muic.ssc.zork.Item.weapon.MythrilSaber;
+import io.muic.ssc.zork.Item.weapon.Weapon;
 
 import java.util.Locale;
 
 public class ItemFactory {
 
     public Weapon createWeapon(String input) {
-        String weapon = input.toLowerCase(Locale.ROOT);
+        String weapon = input.trim().toLowerCase(Locale.ROOT);
         if (weapon.equals("buster sword")) {
             return new BusterSword();
         }

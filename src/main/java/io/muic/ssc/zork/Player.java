@@ -1,9 +1,10 @@
 package io.muic.ssc.zork;
 
-import io.muic.ssc.zork.item.Item;
+import io.muic.ssc.zork.Item.Item;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class Player {
 
@@ -33,6 +34,7 @@ public class Player {
     public void decreaseHealth(int attackDmg) {
         hp -= attackDmg;
         if (hp <= 0) {
+            hp = 0;
             alive = false;
         }
     }
@@ -49,12 +51,29 @@ public class Player {
         return hp;
     }
 
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public int getAttackDmg() {
+        return attackDmg;
+    }
+
     public void setAttackPower(int attackDmg) {
         this.attackDmg = attackDmg;
     }
 
     public List<Item> getInventory() {
         return inventory;
+    }
+
+    public Boolean hasSpecificItem(String itemToGet) {
+        for (Item item : inventory) {
+            if (item.getName().toLowerCase(Locale.ROOT).equals(itemToGet)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void pickUpItem(Item item) {
@@ -68,7 +87,7 @@ public class Player {
         System.out.println("[ Inventory ]");
 
         if (inventory.isEmpty()) {
-            System.out.println("Your inventory is currently empty!");
+            System.out.println("   Your inventory is currently empty!");
         }
         else {
             for (Item item : inventory) {

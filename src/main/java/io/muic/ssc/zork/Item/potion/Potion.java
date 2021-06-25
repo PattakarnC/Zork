@@ -1,6 +1,6 @@
-package io.muic.ssc.zork.item.potion;
+package io.muic.ssc.zork.Item.potion;
 
-import io.muic.ssc.zork.item.Item;
+import io.muic.ssc.zork.Item.Item;
 
 public class Potion extends Item {
 

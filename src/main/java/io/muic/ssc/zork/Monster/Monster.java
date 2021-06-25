@@ -1,9 +1,10 @@
-package io.muic.ssc.zork.monster;
+package io.muic.ssc.zork.Monster;
 
 public class Monster {
 
     private String name;
     private String description;
+    private int maxHp;
     private int hp;
     private int attackDmg;
     private boolean alive;
@@ -11,6 +12,7 @@ public class Monster {
     public Monster(String name, String description, int hp, int attackDmg) {
         this.name = name;
         this.description = description;
+        this.maxHp = hp;
         this.hp = hp;
         this.attackDmg = attackDmg;
         alive = true;
@@ -19,6 +21,7 @@ public class Monster {
     public void decreaseHealth(int attackDmg) {
         hp -= attackDmg;
         if (hp <= 0) {
+            hp = 0;
             alive = false;
         }
     }
@@ -29,6 +32,10 @@ public class Monster {
 
     public String getDescription() {
         return description;
+    }
+
+    public int getMaxHp() {
+        return maxHp;
     }
 
     public int getHp() {

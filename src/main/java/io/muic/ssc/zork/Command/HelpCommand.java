@@ -25,14 +25,25 @@ public class HelpCommand implements Command{
         if (game.isInGame()) {
             List<String> cmdList = CommandFactory.getInGameCommands();
 
+            game.getOutput().println("");
+            game.getOutput().println("========================================================");
             game.getOutput().println(" [ Available In-Game Commands ]");
             for (String command : cmdList) {
                 game.getOutput().println("=> " + command);
                 game.getOutput().println("    " + CommandFactory.get(command).getDescription());
             }
+            game.getOutput().println("========================================================");
         }
         else {
+            List<String> cmdList = CommandFactory.getOutGameCommands();
 
+            game.getOutput().println("========================================================");
+            game.getOutput().println(" [ Available Start Menu Commands ]");
+            for (String command : cmdList) {
+                game.getOutput().println("=> " + command);
+                game.getOutput().println("    " + CommandFactory.get(command).getDescription());
+            }
+            game.getOutput().println("========================================================");
         }
     }
 }
