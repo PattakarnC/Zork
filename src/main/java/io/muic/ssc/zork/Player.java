@@ -83,7 +83,6 @@ public class Player {
     public void printStats() {
         System.out.println("[ Player's Stats ]");
         System.out.println("   HP: " + hp + "/" + max_hp);
-        System.out.println("");
         System.out.println("[ Inventory ]");
 
         if (inventory.isEmpty()) {

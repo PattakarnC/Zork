@@ -53,7 +53,7 @@ public class Monster {
     public void printStats() {
         System.out.println("[ Monster's Stats ]");
         System.out.println("   Name: " + name);
-        System.out.println("   HP: " + hp);
+        System.out.println("   HP: " + hp + "/" + maxHp);
         System.out.println("   Description: " + description);
     }
 }

@@ -3,9 +3,7 @@ package io.muic.ssc.zork.Command;
 import io.muic.ssc.zork.Game;
 import io.muic.ssc.zork.GameOutput;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 public class SaveCommand implements Command{
@@ -21,7 +19,9 @@ public class SaveCommand implements Command{
 
     @Override
     public String getDescription() {
-        return "Load game state from saved point, this command only available at when start the game.";
+        return "Load game state from saved point, this command only available at when start the game." +
+                "\n    To save your current session, please use the same name as your last saved point." +
+                "\n    If this is your first time saving this session, feel free to use any name! ";
     }
 
     @Override
@@ -36,8 +36,18 @@ public class SaveCommand implements Command{
         }
         else {
             try {
-                if (!file.createNewFile()) {      //check if the filename already exists
-                    output.println("Cannot save withh that name! There is already a file name " + fileName + " on this system");
+                if (!file.createNewFile()) {      //check if the filename already exists. If so, overwrite it.
+                    FileWriter fw = new FileWriter("C://Users//user//Desktop//savefile//" + fileName + ".txt", true);
+                    BufferedWriter bw = new BufferedWriter(fw);
+                    PrintWriter pw = new PrintWriter(bw);
+
+                    pw.println(game.getInputTracker());
+                    pw.flush();
+
+                    pw.close();
+                    bw.close();
+                    fw.close();
+                    output.println("All done! You have overwritten your save file!");
                 }
                 else {                            //if not, create a new text file and keep the data in it
                     output.println("Now saving...");

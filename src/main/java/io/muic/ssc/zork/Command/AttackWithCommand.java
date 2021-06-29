@@ -60,6 +60,7 @@ public class AttackWithCommand implements Command{
                         int damage = weapon.getAttackDamage() + player.getAttackDmg();
                         monster.decreaseHealth(damage);
                         output.println("");
+                        output.println("========================================================");
                         output.println(monster.getName() + " took " + damage + " damage!");
                         output.println("[ " + monster.getName() + " ] HP : " + monster.getHp() + "/" + monster.getMaxHp());
 
@@ -68,15 +69,19 @@ public class AttackWithCommand implements Command{
                             room.setMonster(null);
                             output.println("The opposing " + monster.getName() + " has been defeated!");
                             output.println("Your attack damage will increase by 20 units.");
+                            output.println("========================================================");
+                            output.println("");
                             return;
                         }
 
                         player.decreaseHealth(monster.getAttackDmg());
                         output.println("");
-                        output.println("Enemy " + monster.getName() + " strikes back!");
+                        output.println("!!!!! Enemy " + monster.getName() + " strikes back !!!!!");
                         output.println("");
                         output.println("You took " + monster.getAttackDmg() + " damage!");
                         output.println("HP : " + player.getHp() + "/" + player.getMax_hp());
+                        output.println("========================================================");
+                        output.println("");
 
                         if (!player.isAlive()) {
                             output.println("You fainted! Seems like the journey has ended here.");

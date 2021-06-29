@@ -28,12 +28,7 @@ public class CommandFactory {
     }};
 
     public static Command get(String command) {
-        if (COMMANDS_MAP.containsKey(command)) {
-            return COMMANDS_MAP.get(command);
-        }
-        else {
-            return null;
-        }
+        return COMMANDS_MAP.getOrDefault(command, null);
     }
 
     public static List<String> getAllCommands() {

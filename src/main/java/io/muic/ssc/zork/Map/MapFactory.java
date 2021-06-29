@@ -2,6 +2,7 @@ package io.muic.ssc.zork.Map;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class MapFactory {
 
@@ -17,9 +18,27 @@ public class MapFactory {
         }
     }};
 
-    public static Map get(String map) {
-        if (AVAILABLE_MAP.containsKey(map)) {
-            return AVAILABLE_MAP.get(map);
+    public static Map get(String mapName) {
+        for (String map : AVAILABLE_MAP.keySet()) {
+            if (map.toLowerCase(Locale.ROOT).equals(mapName.toLowerCase(Locale.ROOT)))
+                return AVAILABLE_MAP.get(map);
+        }
+        return null;
+    }
+
+    public static java.util.Map<String, Map> getAvailableMap() {
+        return AVAILABLE_MAP;
+    }
+
+    public Map createMap(String mapName) {
+        for (String map : AVAILABLE_MAP.keySet()) {
+            if (map.toLowerCase(Locale.ROOT).equals(mapName.toLowerCase(Locale.ROOT))) {
+                try {
+                    return AVAILABLE_MAP.get(map).getClass().getDeclaredConstructor().newInstance();
+                } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return null;
     }

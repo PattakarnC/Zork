@@ -42,5 +42,6 @@ public class InfoCommand implements Command {
             monster.printStats();
             output.println("========================================================");
         }
+        output.println("");
     }
 }

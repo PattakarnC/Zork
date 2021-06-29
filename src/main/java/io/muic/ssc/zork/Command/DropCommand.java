@@ -15,7 +15,7 @@ public class DropCommand implements Command{
 
     @Override
     public String getCommand() {
-        return null;
+        return "drop";
     }
 
     @Override

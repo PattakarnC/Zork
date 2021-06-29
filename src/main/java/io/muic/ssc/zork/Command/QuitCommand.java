@@ -24,7 +24,13 @@ public class QuitCommand implements Command{
     @Override
     public void execute(Game game, List<String> args) {
         GameOutput output = game.getOutput();
+
+        output.println("");
         output.println("Returning to the main session...");
-        game.setGameStatus(true);
+        output.println("");
+        output.println("========================================================");
+        game.setInGame(false);
+        game.setOutGame(true);
+        game.welcomeScreen();
     }
 }

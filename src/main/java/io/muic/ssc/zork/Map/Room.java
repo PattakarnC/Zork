@@ -8,7 +8,6 @@ import java.util.List;
 
 public class Room {
 
-    private String name;
     private Room north;
     private Room south;
     private Room east;
@@ -18,7 +17,7 @@ public class Room {
     private List<Item> allItem;
     private Monster monster;
 
-    public Room(String name, String description) {
+    public Room(String description) {
         north = null;
         south = null;
         east = null;
