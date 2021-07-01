@@ -40,8 +40,11 @@ public class InfoCommand implements Command {
         output.println("========================================================");
         if (room.containsMonster()) {
             monster.printStats();
-            output.println("========================================================");
         }
+        else {
+            output.println("[ No monster can be seen around the room ]");
+        }
+        output.println("========================================================");
         output.println("");
     }
 }

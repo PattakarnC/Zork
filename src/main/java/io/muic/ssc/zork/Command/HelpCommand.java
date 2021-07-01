@@ -1,6 +1,7 @@
 package io.muic.ssc.zork.Command;
 
 import io.muic.ssc.zork.Game;
+import io.muic.ssc.zork.GameOutput;
 
 import java.util.List;
 
@@ -22,28 +23,36 @@ public class HelpCommand implements Command{
 
     @Override
     public void execute(Game game, List<String> args) {
+        GameOutput output = game.getOutput();
+
         if (game.isInGame()) {
             List<String> cmdList = CommandFactory.getInGameCommands();
 
-            game.getOutput().println("");
-            game.getOutput().println("========================================================");
-            game.getOutput().println(" [ Available In-Game Commands ]");
+            output.println("");
+            output.println("========================================================");
+            output.println("");
+            output.println(" [ Available In-Game Commands ]");
             for (String command : cmdList) {
-                game.getOutput().println("=> " + command);
-                game.getOutput().println("    " + CommandFactory.get(command).getDescription());
+                output.println("=> " + command);
+                output.println("    " + CommandFactory.get(command).getDescription());
             }
-            game.getOutput().println("========================================================");
+            output.println("");
+            output.println("========================================================");
+            output.println("");
         }
         else {
             List<String> cmdList = CommandFactory.getOutGameCommands();
 
-            game.getOutput().println("========================================================");
-            game.getOutput().println(" [ Available Start Menu Commands ]");
+            output.println("========================================================");
+            output.println("");
+            output.println(" [ Available Start Menu Commands ]");
             for (String command : cmdList) {
-                game.getOutput().println("=> " + command);
-                game.getOutput().println("    " + CommandFactory.get(command).getDescription());
+                output.println("=> " + command);
+                output.println("    " + CommandFactory.get(command).getDescription());
             }
-            game.getOutput().println("========================================================");
+            output.println("");
+            output.println("========================================================");
+            output.println("");
         }
     }
 }

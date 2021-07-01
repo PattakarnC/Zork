@@ -5,7 +5,8 @@ public class Yasuo extends Monster{
         super("Yasuo",
                 "An agile swordman who wields the air itself against his enemy.",
                 600,
-                105
+                105,
+                0.6
         );
     }
 }

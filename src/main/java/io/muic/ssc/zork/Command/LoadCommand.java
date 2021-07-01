@@ -31,13 +31,16 @@ public class LoadCommand implements Command {
         String fileName = args.get(0);
 
         if (args.size() < 1 || fileName.equals("")) {
+            output.println("");
             output.println("Please specify your file name!");
+            output.println("");
         }
         else {
             File file = new File("C:/Users/user/Desktop/savefile/" + fileName + ".txt");
             try {
                 Scanner scanner = new Scanner(file);
                 CommandParser commandParser = new CommandParser();
+
                 while (scanner.hasNextLine()) {
                     String s = scanner.nextLine();
                     List<String> words = commandParser.parse(s);
@@ -46,16 +49,17 @@ public class LoadCommand implements Command {
                         if (command != null) {
                             if (command.getCommand().equals("play") && MapFactory.get(words.get(1)) != null) {
                                 game.setCurrentLevel(words.get(1));
-                                game.continuePlaying = true;
                             }
                             command.execute(game, words.subList(1, words.size()));
-                            game.setInGame(true);
                         }
                     }
                 }
+                game.setInGame(true);
+                game.setOutGame(false);
 
                 output.println("");
                 output.println("Save loaded!");
+                output.println("");
             }
             catch (FileNotFoundException e) {
                 output.println("Cannot load [ " + fileName + " ] due to invalid save name!");

@@ -1,6 +1,7 @@
 package io.muic.ssc.zork.Command;
 
 import io.muic.ssc.zork.Game;
+import io.muic.ssc.zork.GameOutput;
 import io.muic.ssc.zork.Player;
 import io.muic.ssc.zork.Item.Item;
 
@@ -25,22 +26,25 @@ public class DropCommand implements Command{
 
     @Override
     public void execute(Game game, List<String> args) {
+        GameOutput output = game.getOutput();
         Player player = game.getPlayer();
         List<Item> inventory = player.getInventory();
         String itemToRemove = args.get(0).trim().toLowerCase(Locale.ROOT);
 
         if (args.size() < 1 || itemToRemove.equals("") ) {
-            game.getOutput().println("Nothing to drop! Please specify the Item you desire to drop.");
+            output.println("Nothing to drop! Please specify the Item you desire to drop.");
         }
         else {
             for (Item item : inventory) {
                 if (item.getName().toLowerCase(Locale.ROOT).equals(itemToRemove)) {
                     inventory.remove(item);
-                    game.getOutput().println("You just dropped " + item.getName() + ".");
+                    output.println("");
+                    output.println("You just dropped " + item.getName() + ".");
+                    output.println("");
                     return;
                 }
             }
-            game.getOutput().println("That Item is not presented in your inventory!");
+            output.println("That Item is not presented in your inventory!");
         }
     }
 }

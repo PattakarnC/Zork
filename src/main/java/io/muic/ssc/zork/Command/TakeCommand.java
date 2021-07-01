@@ -1,6 +1,7 @@
 package io.muic.ssc.zork.Command;
 
 import io.muic.ssc.zork.Game;
+import io.muic.ssc.zork.GameOutput;
 import io.muic.ssc.zork.Player;
 import io.muic.ssc.zork.Map.Room;
 import io.muic.ssc.zork.Item.Item;
@@ -26,23 +27,31 @@ public class TakeCommand implements Command{
 
     @Override
     public void execute(Game game, List<String> args) {
+        GameOutput output = game.getOutput();
         Player player = game.getPlayer();
         Room room = game.getCurrentRoom();
+
         String itemToTake = args.get(0).trim().toLowerCase(Locale.ROOT);
 
         if (args.size() < 1 || itemToTake.equals("")) {
-            game.getOutput().println("You cannot just take nothing! Please specify the Item you desire to take.");
+            output.println("");
+            output.println("You cannot just take nothing! Please specify the Item you desire to take.");
+            output.println("");
         }
         else {
             for (Item item : room.getAllItems()) {
                 if (item.getName().toLowerCase(Locale.ROOT).equals(itemToTake)) {
                     player.pickUpItem(item);
                     room.removeItem(item);
-                    game.getOutput().println("You just picked up " + item.getName() + "!");
+                    output.println("");
+                    output.println("You just picked up " + item.getName() + "!");
+                    output.println("");
                     return;
                 }
             }
-            game.getOutput().println(args.get(0) + " cannot be found in this room.");
+            output.println("");
+            output.println("[ " + args.get(0) + " ] cannot be found in this room.");
+            output.println("");
         }
     }
 }

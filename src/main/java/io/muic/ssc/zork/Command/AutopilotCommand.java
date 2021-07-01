@@ -35,12 +35,14 @@ public class AutopilotCommand implements Command{
         Map currentLevel = game.getCurrentLevel();
 
         if (args.size() < 1 || mapName.equals("")) {
+            output.println("");
             output.println("Please specify the file name!");
+            output.println("");
         }
         else {
             for (Map map : MapFactory.getAvailableMap().values()) {
-                if (currentLevel.name.equals(map.name)) {
-                    game.initiate(map.name);
+                if (currentLevel.getName().equals(map.getName())) {
+                    game.initiate(map.getName());
 
                     File file = new File("C:/Users/user/Desktop/savefile/" + mapName + ".txt");
 

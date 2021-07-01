@@ -2,7 +2,6 @@ package io.muic.ssc.zork.Command;
 
 import io.muic.ssc.zork.Game;
 import io.muic.ssc.zork.GameOutput;
-import io.muic.ssc.zork.Map.Map;
 import io.muic.ssc.zork.Map.MapFactory;
 
 import java.util.List;
@@ -30,19 +29,23 @@ public class PlayCommand implements Command {
         String cleanedInput = args.get(0).toLowerCase(Locale.ROOT).trim();
         
         if (args.size() < 1 || args.get(0).equals("")) {
+            output.println("");
             output.println("Please specify the map name you wish to play!");
+            output.println("");
         }
         else {
             for (String map : MapFactory.getAvailableMap().keySet()) {
                 if (map.toLowerCase(Locale.ROOT).equals(cleanedInput)) {
-                    game.setCurrentLevel(map);
+                    game.initiate(map);
 
                     output.println("");
                     output.println("game start!");
                     output.println("");
+                    output.println("========================================================");
+                    output.println("");
 
-                    output.println("Welcome to " + game.getCurrentLevel().name);
-                    output.println("Your objective is to " + game.getCurrentLevel().task);
+                    output.println("Welcome to " + game.getCurrentLevel().getName() + "!");
+                    output.println("Your goal is to " + game.getCurrentLevel().getTask() + ".");
                     output.println("");
 
                     game.setInGame(true);
@@ -50,7 +53,9 @@ public class PlayCommand implements Command {
                     return;
                 }
             }
+            output.println("");
             output.println("Incorrect map name. Check your spelling!");
+            output.println("");
         }
     }
 }

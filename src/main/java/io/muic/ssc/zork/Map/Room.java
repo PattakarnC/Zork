@@ -1,5 +1,6 @@
 package io.muic.ssc.zork.Map;
 
+import io.muic.ssc.zork.GameOutput;
 import io.muic.ssc.zork.Item.Item;
 import io.muic.ssc.zork.Monster.Monster;
 
@@ -109,17 +110,21 @@ public class Room {
     }
 
     public void printStats() {
-        System.out.println("[ Current Room ]");
-        System.out.println("   Available Exits: " + getAllExits());
+        GameOutput output = new GameOutput();
+
+        output.println("");
+        output.println("[ Current Room ]");
+        output.println("   Available Exits: " + getAllExits());
         if (!allItem.isEmpty()) {
             List<String> itemList = new ArrayList<>();
             for (Item item : allItem) {
                 itemList.add(item.getName());
             }
-            System.out.println("   Item(s): " + itemList);
+            output.println("   Item(s): " + itemList);
         }
         else {
-            System.out.println("   No Item can be picked up in this room.");
+            output.println("   Item(s): No Item can be picked up in this room.");
         }
+        output.println("");
     }
 }

@@ -31,6 +31,5 @@ public class QuitCommand implements Command{
         output.println("========================================================");
         game.setInGame(false);
         game.setOutGame(true);
-        game.welcomeScreen();
     }
 }

@@ -6,7 +6,8 @@ public class Leviathan extends Monster {
         super("Leviathan",
                 "A tutelary dragon who is the manifestation of a dragon king.",
                 800,
-                160
+                160,
+                0.8
         );
     }
 }

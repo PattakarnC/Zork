@@ -11,48 +11,47 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
-public class Game {
+public class Game {             //TODO: implement objective complete
 
     private GameOutput output = new GameOutput();
     private CommandParser commandParser = new CommandParser();
     private static Player player = new Player();
     private static Room currentRoom;
+    public static Map currentLevel;
     private boolean isRunning = true;
-    private boolean inGame;
-    private boolean outGame;
+    private boolean inGame = false;
+    private boolean outGame = true;
     private StringBuilder inputTracker = new StringBuilder();
 
-    public static Map currentLevel;
-
-    public boolean continuePlaying;
-
     public void run() {
-
-        welcomeScreen();
-
-        while (isRunning) {         //TODO: solve unknown input
-            Scanner in = new Scanner(System.in);
-            String s = in.nextLine();
-            List<String> words = commandParser.parse(s, isInGame());
-            Command command = CommandFactory.get(words.get(0));
-
-            if (continuePlaying) {                      //If the player wants to continue from their last checkpoint
-                if (command != null) {
-                    command.execute(this, words.subList(1, words.size()));
-                    if (!command.getCommand().equals("save") && !command.getCommand().equals("load") && !command.getCommand().equals("quit")) {
-                        addInputTracker(s);
-                    }
-                }
+        while (isRunning) {
+            if (isOutGame()) {
+                welcomeScreen();
             }
-            else {                                      //If not, start a new game
-                if (command != null) {
-                    command.execute(this, words.subList(1, words.size()));
-                    if (!command.getCommand().equals("save") && !command.getCommand().equals("load") && !command.getCommand().equals("quit")) {
-                        addInputTracker(s);
+            else {
+                Scanner in = new Scanner(System.in);
+                String s = in.nextLine();
+                List<String> words = commandParser.parse(s, isInGame());
+                if (words != null) {
+                    Command command = CommandFactory.get(words.get(0));
+                    String cmdName = command.getCommand();
+                    if (command != null) {
+                        command.execute(this, words.subList(1, words.size()));
+                        if (!cmdName.equals("save") && !cmdName.equals("load") && !cmdName.equals("quit")) {
+                            addInputTracker(s);
+                        }
+                    }
+                    if (currentLevel.taskComplete()) {
+                        output.println("!!! Objective Complete !!!");
+                        output.println("");
+                        setInGame(false);
+                        setOutGame(true);
                     }
                 }
                 else {
-                    System.out.println("Unknown command [" + s + "].");
+                    output.println("");
+                    output.println("[ " + s + " ] is not a valid command!");
+                    output.println("");
                 }
             }
         }
@@ -60,39 +59,52 @@ public class Game {
 
 
     public void welcomeScreen() {
+        output.println(" ________    ______   .______       __  ___ \n" +
+                "|       /   /  __  \\  |   _  \\     |  |/  / \n" +
+                "`---/  /   |  |  |  | |  |_)  |    |  '  /  \n" +
+                "   /  /    |  |  |  | |      /     |    <   \n" +
+                "  /  /----.|  `--'  | |  |\\  \\----.|  .  \\  \n" +
+                " /________| \\______/  | _| `._____||__|\\__\\ ");
+        output.println("");
         output.println("Welcome to Zork Game: Final Fantasy Edition!");
         output.println("          Available Command");
         for (String cmd : CommandFactory.getOutGameCommands()) {
-            output.println("              [ " + cmd + " ]");
+            output.println("           =>  [ " + cmd + " ]");
         }
-        setOutGame(true);
-        setInGame(false);
+        output.println("");
+        output.println("           Available Maps");
+        for (String map : MapFactory.getAvailableMap().keySet()) {
+            output.println("         =>  [ " + map + " ]");
+        }
+        output.println("");
+
+        createNewInputTracker();
 
         while (isOutGame() == true) {
             Scanner in = new Scanner(System.in);
             String s = in.nextLine();
             List<String> words = commandParser.parse(s, isInGame());
-            Command command = CommandFactory.get(words.get(0));
-            if (command != null) {
-                command.execute(this, words.subList(1, words.size()));
-                if (command.getCommand().equals("play")) {
-                    if (isInGame()) {
-                        addInputTracker(s);
+            if (words != null) {
+                Command command = CommandFactory.get(words.get(0));
+                if (command != null) {
+                    command.execute(this, words.subList(1, words.size()));
+                    if (command.getCommand().equals("play")) {
+                        if (isInGame()) {
+                            addInputTracker(s);
+                        }
                     }
-                }     //!command.getCommand().equals("load") && !command.getCommand().equals("quit"))
+                }
             }
             else {
-                System.out.println("Unknown command [" + s + "].");
+                output.println("");
+                output.println("[ " + s + " ] is not a valid command!");
+                output.println("");
             }
         }
     }
 
     public GameOutput getOutput() {
         return output;
-    }
-
-    public void quit() {
-        isRunning = false;
     }
 
     public void exit() {
@@ -109,10 +121,6 @@ public class Game {
 
     public void moveRoom(Room room) {
         currentRoom = room;
-    }
-
-    public void setGameStatus(Boolean isRunning) {
-        this.isRunning = isRunning;
     }
 
     public boolean isInGame() {
@@ -136,7 +144,11 @@ public class Game {
         inputTracker.append("\n");
     }
 
-    public String getInputTracker() {
+    public void createNewInputTracker() {
+        inputTracker = new StringBuilder();
+    }
+
+    public String getInputTrackerAsString() {
         return inputTracker.toString();
     }
 
@@ -149,27 +161,13 @@ public class Game {
             if (currentLevel.toLowerCase(Locale.ROOT).equals(level.toLowerCase(Locale.ROOT))) {
                 MapFactory factory = new MapFactory();
                 this.currentLevel = factory.createMap(level);
-                this.currentRoom = this.currentLevel.startRoom;
+                this.currentRoom = this.currentLevel.getStartRoom();
             }
         }
     }
 
-    public void setRunning(boolean running) {
-        isRunning = running;
-    }
-
     public void initiate(String mapName) {
         player = new Player();
-//        MapFactory factory = new MapFactory();
-//        currentLevel = factory.createMap(mapName);
         setCurrentLevel(mapName);
-//        currentRoom = currentLevel.startRoom;
-//        if (currentLevel == null) {
-//            currentRoom = null;
-//        }
-//        else {
-//            currentRoom = currentLevel.startRoom;
-//        }
-//        inputTracker = new StringBuilder();
     }
 }

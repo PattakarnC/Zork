@@ -81,18 +81,29 @@ public class Player {
     }
 
     public void printStats() {
-        System.out.println("[ Player's Stats ]");
-        System.out.println("   HP: " + hp + "/" + max_hp);
-        System.out.println("[ Inventory ]");
+        GameOutput output = new GameOutput();
+        output.println("              _ __| |__ _ _  _ ___ _ _ \n" +
+                "             | '_ \\ / _` | || / -_) '_|\n" +
+                "             | .__/_\\__,_|\\_, \\___|_|  \n" +
+                "             |_|          |__/  ");
+
+        output.println("");
+        output.println("[ Player's Stats ]");
+        output.println("   HP: " + hp + "/" + max_hp);
+        output.println("   Attack DMG: " + attackDmg);
+        output.println("");
+        output.println("[ Inventory ]");
 
         if (inventory.isEmpty()) {
-            System.out.println("   Your inventory is currently empty!");
+            output.println("   Your inventory is currently empty!");
+            output.println("");
         }
         else {
             for (Item item : inventory) {
-                System.out.println("=> " + item.getName());
-                System.out.println("     " + item.getDescription());
+                output.println("=> " + item.getName());
+                output.println("     " + item.getDescription());
             }
+            output.println("");
         }
     }
 }

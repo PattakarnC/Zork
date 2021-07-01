@@ -10,6 +10,7 @@ import io.muic.ssc.zork.Monster.Monster;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 public class AttackWithCommand implements Command{
 
@@ -29,31 +30,41 @@ public class AttackWithCommand implements Command{
     }
 
     @Override
-    public void execute(Game game, List<String> args) {        //TODO: add monster attack probability
+    public void execute(Game game, List<String> args) {
         Player player = game.getPlayer();
         GameOutput output = game.getOutput();
         Room room = game.getCurrentRoom();
         Monster monster = room.getMonster();
 
+        final Random RANDOM = new Random();
+
         String cleanedInput = args.get(0).trim().toLowerCase(Locale.ROOT);
 
         if (args.size() < 1 || cleanedInput.equals("")) {
+            output.println("");
             output.println("You cannot attack with nothing! Please specify your weapon.");
             output.println("type [ info ] to see your inventory.");
+            output.println("");
         }
         else {
             ItemFactory factory = new ItemFactory();
             Weapon weapon = factory.createWeapon(cleanedInput);
 
             if (weapon == null) {    //input is not a weapon or is invalid
+                output.println("");
                 output.println("That is not a weapon!");
+                output.println("");
             }
             else if (!player.hasSpecificItem(cleanedInput)) {
+                output.println("");
                 output.println("It seems like you don't have that Item in your inventory.");
+                output.println("");
             }
             else {
                 if (!room.containsMonster()) {
+                    output.println("");
                     output.println("There is no Monster around here!");
+                    output.println("");
                 }
                 else {
                     if (monster.isAlive()) {
@@ -61,36 +72,48 @@ public class AttackWithCommand implements Command{
                         monster.decreaseHealth(damage);
                         output.println("");
                         output.println("========================================================");
+                        output.println("");
                         output.println(monster.getName() + " took " + damage + " damage!");
                         output.println("[ " + monster.getName() + " ] HP : " + monster.getHp() + "/" + monster.getMaxHp());
 
                         if (!monster.isAlive()) {
                             player.setAttackPower(player.getAttackDmg() + 20);
                             room.setMonster(null);
+                            output.println("");
                             output.println("The opposing " + monster.getName() + " has been defeated!");
                             output.println("Your attack damage will increase by 20 units.");
+                            output.println("");
                             output.println("========================================================");
                             output.println("");
                             return;
                         }
 
-                        player.decreaseHealth(monster.getAttackDmg());
-                        output.println("");
-                        output.println("!!!!! Enemy " + monster.getName() + " strikes back !!!!!");
-                        output.println("");
-                        output.println("You took " + monster.getAttackDmg() + " damage!");
-                        output.println("HP : " + player.getHp() + "/" + player.getMax_hp());
-                        output.println("========================================================");
-                        output.println("");
+                        if (RANDOM.nextDouble() <= monster.getAttackProbability()) {
+                            player.decreaseHealth(monster.getAttackDmg());
+                            output.println("");
+                            output.println("!!!!! Enemy " + monster.getName() + " strikes back !!!!!");
+                            output.println("");
+                            output.println("You took " + monster.getAttackDmg() + " damage!");
+                            output.println("HP : " + player.getHp() + "/" + player.getMax_hp());
+                            output.println("");
+                            output.println("========================================================");
+                            output.println("");
 
-                        if (!player.isAlive()) {
-                            output.println("You fainted! Seems like the journey has ended here.");
-                            output.println("Returning to the main session...");
-                            game.quit();
+                            if (!player.isAlive()) {
+                                output.println("You fainted! Seems like the journey has ended here.");
+                                output.println("Returning to the main session...");
+                                output.println("");
+                                game.setOutGame(true);
+                                game.setInGame(false);
+                            }
                         }
-                    }
-                    else {
-                        output.println("The Monster is already dead...");
+                        else {
+                            output.println("");
+                            output.println("Enemy " + monster.getName() + " tried to hit you but missed.");
+                            output.println("Now it is your chance!");
+                            output.println("");
+                            output.println("========================================================");
+                        }
                     }
                 }
             }

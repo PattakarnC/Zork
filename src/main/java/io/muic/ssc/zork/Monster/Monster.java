@@ -1,5 +1,7 @@
 package io.muic.ssc.zork.Monster;
 
+import io.muic.ssc.zork.GameOutput;
+
 public class Monster {
 
     private String name;
@@ -7,14 +9,16 @@ public class Monster {
     private int maxHp;
     private int hp;
     private int attackDmg;
+    private double attackProbability;
     private boolean alive;
 
-    public Monster(String name, String description, int hp, int attackDmg) {
+    public Monster(String name, String description, int hp, int attackDmg, double attackProbability) {
         this.name = name;
         this.description = description;
         this.maxHp = hp;
         this.hp = hp;
         this.attackDmg = attackDmg;
+        this.attackProbability = attackProbability;
         alive = true;
     }
 
@@ -46,15 +50,25 @@ public class Monster {
         return attackDmg;
     }
 
+    public double getAttackProbability() {
+        return attackProbability;
+    }
+
     public boolean isAlive() {
         return alive;
     }
 
     public void printStats() {
-        System.out.println("[ Monster's Stats ]");
-        System.out.println("   Name: " + name);
-        System.out.println("   HP: " + hp + "/" + maxHp);
-        System.out.println("   Description: " + description);
+        GameOutput output = new GameOutput();
+        output.println("           _ __  ___ _ _  __| |_ ___ _ _ \n" +
+                "           | '  \\/ _ \\ ' \\(_-<  _/ -_) '_|\n" +
+                "           |_|_|_\\___/_||_/__/\\__\\___|_|");
+        output.println("");
+        output.println("[ Monster's Stats ]");
+        output.println("   Name: " + name);
+        output.println("   HP: " + hp + "/" + maxHp);
+        output.println("   Description: " + description);
+        output.println("");
     }
 }
 

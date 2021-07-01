@@ -6,7 +6,8 @@ public class RiotTrooper extends Monster{
         super("Riot Trooper",
                 "A trooper who protect himself with a large shield, specializes in close combat.",
                 250,
-                75
+                75,
+                0.7
         );
     }
 }

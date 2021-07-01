@@ -6,6 +6,7 @@ public enum CommandType {
     DROP(DropCommand.class, "drop", true, false),
     ATTACK(AttackWithCommand.class, "attack with", true, false),
     GO(GoCommand.class, "go", true, false),
+    MAP(MapCommand.class, "map", true, false),
     AUTOPILOT(AutopilotCommand.class, "autopilot", true, false),
     HELP(HelpCommand.class, "help", true, true),
     QUIT(QuitCommand.class, "quit", true, false),

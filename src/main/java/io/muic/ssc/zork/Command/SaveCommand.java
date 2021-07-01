@@ -32,7 +32,9 @@ public class SaveCommand implements Command{
         File file = new File("C://Users//user//Desktop//savefile//" + fileName + ".txt");
 
         if (args.size() < 1 || fileName.equals("")) {
+            output.println("");
             output.println("Please specify your save name!");
+            output.println("");
         }
         else {
             try {
@@ -41,20 +43,26 @@ public class SaveCommand implements Command{
                     BufferedWriter bw = new BufferedWriter(fw);
                     PrintWriter pw = new PrintWriter(bw);
 
-                    pw.println(game.getInputTracker());
+                    pw.println(game.getInputTrackerAsString());
+                    game.createNewInputTracker();
                     pw.flush();
 
                     pw.close();
                     bw.close();
                     fw.close();
+                    output.println("");
                     output.println("All done! You have overwritten your save file!");
+                    output.println("");
                 }
                 else {                            //if not, create a new text file and keep the data in it
                     output.println("Now saving...");
                     FileWriter saveFile = new FileWriter("C://Users//user//Desktop//savefile//" + fileName + ".txt");
-                    saveFile.write(game.getInputTracker());
+                    saveFile.write(game.getInputTrackerAsString());
+                    game.createNewInputTracker();
                     saveFile.close();
+                    output.println("");
                     output.println("All done! You have successfully saved your progress.");
+                    output.println("");
                 }
             }
             catch (IOException e) {
