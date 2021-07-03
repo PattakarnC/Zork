@@ -26,7 +26,6 @@ public class AutopilotCommand implements Command{
         return "Run this game in autopilot mode using the list of command in the file, this command only available while playing game";
     }
 
-    //TODO: create autopilot file, make name in Map class private
     @Override
     public void execute(Game game, List<String> args) {
         GameOutput output = game.getOutput();
