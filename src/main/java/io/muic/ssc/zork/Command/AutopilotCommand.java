@@ -44,7 +44,7 @@ public class AutopilotCommand implements Command{
                 if (currentLevel.getName().equals(map.getName())) {
                     game.initiate(map.getName());
 
-                    File file = new File("C:/Users/user/Desktop/savefile/" + mapName + ".txt");
+                    File file = new File("C:/Users/user/Desktop/autopilot/" + mapName + ".txt");
 
                     try {
                         Scanner scanner = new Scanner(file);
@@ -61,7 +61,9 @@ public class AutopilotCommand implements Command{
                         }
                     }
                     catch (FileNotFoundException e) {
+                        output.println("");
                         output.println("!!! File not found !!!");
+                        output.println("");
                     }
                 }
             }

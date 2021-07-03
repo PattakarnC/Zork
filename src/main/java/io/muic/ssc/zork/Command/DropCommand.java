@@ -44,7 +44,7 @@ public class DropCommand implements Command{
                     return;
                 }
             }
-            output.println("That Item is not presented in your inventory!");
+            output.println("That item does not in your inventory!");
         }
     }
 }

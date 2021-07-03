@@ -29,6 +29,7 @@ public class GoCommand implements Command{
         GameOutput output = game.getOutput();
         Player player = game.getPlayer();
         Room room = game.getCurrentRoom();
+        Room currentRoom = game.getCurrentRoom();
         String direction = args.get(0).trim().toLowerCase(Locale.ROOT);
 
         if (args.size() < 1 || direction.equals("")) {
@@ -38,19 +39,24 @@ public class GoCommand implements Command{
             if (room.getAllExits().contains(direction)) {
                 if (direction.equals("north")) {
                     game.moveRoom(room.getNorthExit());
+                    currentRoom = room.getNorthExit();
                 }
                 else if (direction.equals("south")) {
                     game.moveRoom(room.getSouthExit());
+                    currentRoom = room.getSouthExit();
                 }
                 else if (direction.equals("east")) {
                     game.moveRoom(room.getEastExit());
+                    currentRoom = room.getEastExit();
                 }
                 else {
                     game.moveRoom(room.getWestExit());
+                    currentRoom = room.getWestExit();
                 }
                 player.increaseHealth(100);
                 output.println("");
                 output.println("You have successfully moved to the room at " + direction + ".");
+                output.println("Now, you are currently at " + currentRoom.getDescription() + ".");
                 output.println("Your HP will recover by 100 HP.");
                 output.println("");
             }

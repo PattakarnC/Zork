@@ -11,6 +11,9 @@ public class MonsterFactory {
         else if (monster.equals("yasuo")) {
             return new Yasuo();
         }
+        else if (monster.equals("fat chocobo")) {
+            return new FatChocobo();
+        }
         else if (monster.equals("leviathan")) {
             return new Leviathan();
         }

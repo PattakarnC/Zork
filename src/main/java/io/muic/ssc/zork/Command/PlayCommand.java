@@ -45,6 +45,8 @@ public class PlayCommand implements Command {
                     output.println("");
 
                     output.println("Welcome to " + game.getCurrentLevel().getName() + "!");
+                    output.println(game.getCurrentLevel().getDescription());
+                    output.println("");
                     output.println("Your goal is to " + game.getCurrentLevel().getTask() + ".");
                     output.println("");
 

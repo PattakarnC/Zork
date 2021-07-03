@@ -113,6 +113,7 @@ public class AttackWithCommand implements Command{
                             output.println("Now it is your chance!");
                             output.println("");
                             output.println("========================================================");
+                            output.println("");
                         }
                     }
                 }

@@ -4,7 +4,7 @@ import io.muic.ssc.zork.Item.Item;
 
 public class Weapon extends Item {
 
-    public int attackDamage;
+    private int attackDamage;
 
     public int getAttackDamage() {
         return attackDamage;
@@ -15,8 +15,7 @@ public class Weapon extends Item {
     }
 
     public Weapon(String name, String description, int attackDamage) {
-        this.name = name;
-        this.description = description;
+        super(name, description);
         this.attackDamage = attackDamage;
     }
 }

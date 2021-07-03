@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
-public class Game {             //TODO: implement objective complete
+public class Game {
 
     private GameOutput output = new GameOutput();
     private CommandParser commandParser = new CommandParser();
@@ -42,7 +42,10 @@ public class Game {             //TODO: implement objective complete
                         }
                     }
                     if (currentLevel.taskComplete()) {
-                        output.println("!!! Objective Complete !!!");
+                        output.println("");
+                        output.println("********************************************************");
+                        output.println("                 Objective Complete                     ");
+                        output.println("********************************************************");
                         output.println("");
                         setInGame(false);
                         setOutGame(true);
@@ -67,14 +70,14 @@ public class Game {             //TODO: implement objective complete
                 " /________| \\______/  | _| `._____||__|\\__\\ ");
         output.println("");
         output.println("Welcome to Zork Game: Final Fantasy Edition!");
-        output.println("          Available Command");
+        output.println("          Available Commands");
         for (String cmd : CommandFactory.getOutGameCommands()) {
             output.println("           =>  [ " + cmd + " ]");
         }
         output.println("");
-        output.println("           Available Maps");
+        output.println("            Available Maps");
         for (String map : MapFactory.getAvailableMap().keySet()) {
-            output.println("         =>  [ " + map + " ]");
+            output.println("           =>  [ " + map + " ]");
         }
         output.println("");
 

@@ -11,8 +11,7 @@ public class Potion extends Item {
     }
 
     public Potion(String name, String description, int increaseHp) {
-        this.name = name;
-        this.description = description;
+        super(name, description);
         this.increasedHp = increaseHp;
     }
 }

@@ -2,6 +2,7 @@ package io.muic.ssc.zork.Map;
 
 public abstract class Map {
     private String name;
+    private String description;
     private String task;
     private Room startRoom;
     public abstract boolean taskComplete();
@@ -12,6 +13,14 @@ public abstract class Map {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getTask() {
